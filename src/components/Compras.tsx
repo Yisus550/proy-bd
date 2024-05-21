@@ -18,13 +18,18 @@ const Header = styled.header`
   background-color: #f1c3a9;
   padding-left: 200px;
 
-  & p{
+  & p {
     font-size: 40px;
     padding-left: 20px;
   }
 
   & svg {
     transform: translateY(-10px);
+  }
+
+  @media (max-width: 1359px) {
+    width: 100%;
+    padding-left: 20px;
   }
 `;
 
@@ -40,6 +45,12 @@ const Compra = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 700px) {
+    & > input {
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 const Lista = styled.section`
@@ -52,6 +63,10 @@ const BtnSection = styled.section`
   display: flex;
   gap: 20px;
   transform: translateX(200px);
+
+  @media (max-width: 767px) {
+    transform: none;
+  }
 `;
 
 const ListaUL = styled.ul`

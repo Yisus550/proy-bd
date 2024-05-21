@@ -28,7 +28,7 @@ textarea {
   }
 }
 
-input[type="button"] {
+input[type="button"], input[type="submit"] {
   width: 100px;
   height: 30px;
   background-color: #F59E00;
@@ -38,6 +38,17 @@ input[type="button"] {
   &:hover{
     background-color: #D52B1E;
     transition: background-color 200ms;
+  }
+}
+
+input[type="text"] {
+  width: 200px;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px;
+
+  &:focus {
+    outline: none;
   }
 }
 

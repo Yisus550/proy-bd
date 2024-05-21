@@ -1,28 +1,36 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Navbar } from "./components/Navbar";
 import Inicio from "./components/Inicio";
 import Compras from "./components/Compras";
 import { Footer } from "./components/Footer";
+import Login from "./components/Login";
 
 export default function App() {
-  const [page, setPage] = useState("")
+  const [page, setPage] = useState("");
+  const [isLogged, setIsLogged] = useState(false);
 
   function getPage() {
     switch (page) {
       case "inicio":
-        return <Inicio />
+        return <Inicio />;
       case "compras":
-        return <Compras />
+        return <Compras />;
       default:
-        return <Inicio />
+        return <Inicio />;
     }
   }
-
+  
   return (
     <>
-      <Navbar setPage={setPage} />
-      {getPage()}
-      <Footer />
+      {!isLogged ? (
+        <Login setIsLogged={setIsLogged} />
+      ) : (
+        <>
+          <Navbar setPage={setPage} />
+          {getPage()}
+          <Footer />
+        </>
+      )}
     </>
-  )
+  );
 }
