@@ -1,3 +1,4 @@
+import { useState, type FormEvent } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -33,7 +34,7 @@ const Header = styled.header`
   }
 `;
 
-const UsuariosConteiner = styled.main`
+const UsuariosConteiner = styled.form`
   display: grid;
   place-content: center;
   grid-template-columns: repeat(2, 1fr);
@@ -54,6 +55,17 @@ const SectionOne = styled.section`
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   text-align: end;
+
+  .calve-container {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    transform: translateX(100px);
+  }
+
+  .btn-buscar {
+    transform: translateX(110px);
+  }
 
   @media (max-width: 768px) {
     display: flex;
@@ -105,6 +117,24 @@ const BtnSection = styled.section`
 `;
 
 export default function RegistroUsuarios() {
+  const [clave, setclave] = useState<number>()
+  const [nombre, setnombre] = useState<string>()
+  const [apellidoP, setapellidoP] = useState<string>()
+  const [apellidoM, setapellidoM] = useState<string>()
+  const [correo, setcorreo] = useState<string>()
+  const [usuario, setusuario] = useState<string>()
+  const [password, setpassword] = useState<string>()
+  const [fecha, setfecha] = useState<string>()
+  const [perfil, setperfil] = useState<string>()
+  const [estatus, setestatus] = useState<number>()
+  const [telefono, settelefono] = useState<string>()
+  // const [usuario, setusuario] = useState({})
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(usuario, password, correo)
+  }
+
   return (
     <Container>
       <Header>
@@ -122,66 +152,70 @@ export default function RegistroUsuarios() {
         <p>USUARIOS</p>
       </Header>
 
-      <UsuariosConteiner>
+      <UsuariosConteiner onSubmit={handleSubmit}>
         <SectionOne>
-          <label htmlFor="clave">Clave:</label>
-          <input type="number" id="clave" />
+          <div className="calve-container">
+            <label htmlFor="clave">Clave:</label>
+            <input type="number" id="clave" autoComplete="off" onChange={(e) => setclave(+e.target.value)} />
+          </div>
+          <input className="btn-buscar" type="button" value="Buscar" id="search" />
 
           <label htmlFor="nombre">Nombre:</label>
-          <input type="text" id="nombre" />
+          <input type="text" id="nombre" autoComplete="off" onChange={(e) => setnombre(e.target.value)} />
 
           <label htmlFor="apellidoPaterno">Apellido Paterno:</label>
-          <input type="text" id="apellidoPaterno" />
+          <input type="text" id="apellidoPaterno" autoComplete="off" onChange={(e) => setapellidoP(e.target.value)} />
 
           <label htmlFor="apellidoMaterno">Apellido Materno:</label>
-          <input type="text" id="apellidoMaterno" />
+          <input type="text" id="apellidoMaterno" autoComplete="off" onChange={(e) => setapellidoM(e.target.value)} />
 
           <label htmlFor="correo">Correo:</label>
-          <input type="email" id="correo" />
+          <input type="email" id="correo" autoComplete="off" onChange={(e) => setcorreo(e.target.value)} />
 
           <label htmlFor="usuario">Usuario:</label>
-          <input type="text" id="usuario" />
+          <input type="text" id="usuario" autoComplete="off" onChange={(e) => setusuario(e.target.value)} />
 
           <label htmlFor="password">Contraseña:</label>
-          <input type="password" id="password" />
+          <input type="password" id="password" autoComplete="off" onChange={(e) => setpassword(e.target.value)} />
         </SectionOne>
         <SectionTow>
           <label htmlFor="fecha">Fecha de registro:</label>
-          <input type="date" id="fecha" />
+          <input type="date" id="fecha" autoComplete="off" onChange={(e) => setfecha(e.target.value)} />
 
           <label htmlFor="perfil">Pefil:</label>
-          <input type="text" id="perfil" />
+          <input type="text" id="perfil" autoComplete="off" onChange={(e) => setperfil(e.target.value)} />
 
           <label htmlFor="estatus">Estatus:</label>
-          <input type="text" id="estatus" />
+          <input type="text" id="estatus" autoComplete="off" onChange={(e) => setestatus(+e.target.value)} />
 
           <label htmlFor="telefono">Telefono:</label>
-          <input type="tel" id="telefono" />
+          <input type="tel" id="telefono" autoComplete="off" onChange={(e) => settelefono(e.target.value)} />
         </SectionTow>
+        <input type="submit" value="Guardar" />
       </UsuariosConteiner>
 
-      <div className="footer">
+      <footer>
         <BtnSection>
           <div className="status-container">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="84"
-            height="84"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="#2A9D8F"
-              d="m3 19l4.5-7L3 5h12q.5 0 .938.225t.712.625L21 12l-4.35 6.15q-.275.4-.712.625T15 19z"
-            />
-          </svg>
-          <p>Estatus del cliente</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="84"
+              height="84"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#2A9D8F"
+                d="m3 19l4.5-7L3 5h12q.5 0 .938.225t.712.625L21 12l-4.35 6.15q-.275.4-.712.625T15 19z"
+              />
+            </svg>
+            <p>Estatus del cliente</p>
           </div>
           <div className="btn-container">
-            <input type="button" value="Guardar" />
+            
             <input type="button" value="Actualizar" />
           </div>
         </BtnSection>
-      </div>
+      </footer>
     </Container>
   );
 }
