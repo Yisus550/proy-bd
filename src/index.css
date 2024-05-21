@@ -41,11 +41,12 @@ input[type="button"], input[type="submit"] {
   }
 }
 
-input[type="text"] {
+input {
   width: 200px;
   border: 0;
   border-radius: 5px;
   padding: 5px;
+  background-color: #f1c3a9;
 
   &:focus {
     outline: none;
@@ -53,11 +54,11 @@ input[type="text"] {
 }
 
 input[type="number"] {
-  width: 100px;
+  width: 80px;
   border: 0;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #f1c3a9;
-  padding: 10px;
+  padding: 5px;
 
   &:focus {
     outline: none;

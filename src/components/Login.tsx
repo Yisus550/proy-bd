@@ -62,6 +62,10 @@ const UserDiv = styled.div`
   gap: 15px;
 `;
 
+const InputText = styled.input`
+  background-color: #fff;
+`;
+
 export default function Login({ setIsLogged }: Props) {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -89,9 +93,9 @@ export default function Login({ setIsLogged }: Props) {
         <Form onSubmit={handleSubmit}>
           <UserDiv>
             <label htmlFor="usuario">Usuario</label>
-            <input type="text" id="usuario" />
+            <InputText type="text" id="usuario" />
             <label htmlFor="contra">Contraseña</label>
-            <input type="text" id="contra" />
+            <InputText type="text" id="contra" />
             <span>Usuario y/o contraseña incorrectos</span>
           </UserDiv>
           <input type="submit" value="Ingresar" />
