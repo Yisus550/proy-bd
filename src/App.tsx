@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 import Inicio from "./components/Inicio";
 import Compras from "./components/Compras";
-import { Footer } from "./components/Footer";
 import Login from "./components/Login";
 import RegistroUsuarios from "./components/RegistroUsuarios";
+import Ventas from "./components/Ventas";
 
 export default function App() {
   const [page, setPage] = useState("");
@@ -18,6 +19,8 @@ export default function App() {
         return <Compras />;
       case "usuarios":
         return <RegistroUsuarios />;
+      case "ventas":
+        return <Ventas />;
       default:
         return <Inicio />;
     }

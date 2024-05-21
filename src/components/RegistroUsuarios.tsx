@@ -78,9 +78,26 @@ const SectionTow = styled.section`
 `;
 
 const BtnSection = styled.section`
+  width: 100%;
   display: flex;
   gap: 20px;
-  transform: translateX(200px);
+  justify-content: space-between;
+  padding: 0 200px;
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .status-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    gap: 20px;
+  }
 
   @media (max-width: 700px) {
     transform: none;
@@ -145,8 +162,24 @@ export default function RegistroUsuarios() {
 
       <div className="footer">
         <BtnSection>
-          <input type="button" value="Guardar" />
-          <input type="button" value="Actualizar" />
+          <div className="status-container">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="84"
+            height="84"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#2A9D8F"
+              d="m3 19l4.5-7L3 5h12q.5 0 .938.225t.712.625L21 12l-4.35 6.15q-.275.4-.712.625T15 19z"
+            />
+          </svg>
+          <p>Estatus del cliente</p>
+          </div>
+          <div className="btn-container">
+            <input type="button" value="Guardar" />
+            <input type="button" value="Actualizar" />
+          </div>
         </BtnSection>
       </div>
     </Container>
