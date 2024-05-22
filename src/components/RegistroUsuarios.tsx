@@ -1,3 +1,4 @@
+import axios, { type AxiosResponse } from "axios";
 import { useState, type FormEvent } from "react";
 import styled from "styled-components";
 
@@ -34,7 +35,7 @@ const Header = styled.header`
   }
 `;
 
-const UsuariosConteiner = styled.form`
+const Form = styled.form`
   display: grid;
   place-content: center;
   grid-template-columns: repeat(2, 1fr);
@@ -117,22 +118,59 @@ const BtnSection = styled.section`
 `;
 
 export default function RegistroUsuarios() {
-  const [clave, setclave] = useState<number>()
-  const [nombre, setnombre] = useState<string>()
-  const [apellidoP, setapellidoP] = useState<string>()
-  const [apellidoM, setapellidoM] = useState<string>()
-  const [correo, setcorreo] = useState<string>()
-  const [usuario, setusuario] = useState<string>()
-  const [password, setpassword] = useState<string>()
-  const [fecha, setfecha] = useState<string>()
-  const [perfil, setperfil] = useState<string>()
-  const [estatus, setestatus] = useState<number>()
-  const [telefono, settelefono] = useState<string>()
-  // const [usuario, setusuario] = useState({})
+  const [clave, setclave] = useState<number>();
+  const [nombre, setnombre] = useState<string>();
+  const [apellidoP, setapellidoP] = useState<string>();
+  const [apellidoM, setapellidoM] = useState<string>();
+  const [correo, setcorreo] = useState<string>();
+  const [usuario, setusuario] = useState<string>();
+  const [password, setpassword] = useState<string>();
+  const [fecha, setfecha] = useState<string>();
+  const [perfil, setperfil] = useState<string>();
+  const [estatus, setestatus] = useState<number>();
+  const [telefono, settelefono] = useState<string>();
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleGuardar(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(usuario, password, correo)
+
+    const url = "../Php/Insertar.php";
+    const fData = new FormData();
+    fData.append("clave", String(clave));
+    fData.append("nombre", String(nombre));
+    fData.append("apellidoP", String(apellidoP));
+    fData.append("apellidoM", String(apellidoM));
+    fData.append("correo", String(correo));
+    fData.append("usuario", String(usuario));
+    fData.append("password", String(password));
+    fData.append("fecha", String(fecha));
+    fData.append("perfil", String(perfil));
+    fData.append("estatus", String(estatus));
+    fData.append("telefono", String(telefono));
+
+    axios
+      .post(url, fData)
+      .then(() => {
+        confirm("Se a guardado exitosamente");
+      })
+      .catch(() => {
+        confirm("Error al insertar");
+      });
+  }
+
+  function handleBuscar() {
+    const url = "../Php/listar.php";
+    const fData = new FormData();
+    fData.append("clave", String(clave));
+
+    axios
+      .post(url, fData)
+      .then((response) => {
+        const data = response.data;
+        console.log(data.usuario);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -151,48 +189,107 @@ export default function RegistroUsuarios() {
         </svg>
         <p>USUARIOS</p>
       </Header>
-
-      <UsuariosConteiner onSubmit={handleSubmit}>
+      <Form onSubmit={handleGuardar}>
         <SectionOne>
           <div className="calve-container">
             <label htmlFor="clave">Clave:</label>
-            <input type="number" id="clave" autoComplete="off" onChange={(e) => setclave(+e.target.value)} />
+            <input
+              type="number"
+              id="clave"
+              autoComplete="off"
+              onChange={(e) => setclave(Number(e.target.value))}
+            />
           </div>
-          <input className="btn-buscar" type="button" value="Buscar" id="search" />
+          <input
+            className="btn-buscar"
+            type="button"
+            value="Buscar"
+            onClick={handleBuscar}
+          />
 
           <label htmlFor="nombre">Nombre:</label>
-          <input type="text" id="nombre" autoComplete="off" onChange={(e) => setnombre(e.target.value)} />
+          <input
+            type="text"
+            id="nombre"
+            autoComplete="off"
+            onChange={(e) => setnombre(e.target.value)}
+          />
 
           <label htmlFor="apellidoPaterno">Apellido Paterno:</label>
-          <input type="text" id="apellidoPaterno" autoComplete="off" onChange={(e) => setapellidoP(e.target.value)} />
+          <input
+            type="text"
+            id="apellidoPaterno"
+            autoComplete="off"
+            onChange={(e) => setapellidoP(e.target.value)}
+          />
 
           <label htmlFor="apellidoMaterno">Apellido Materno:</label>
-          <input type="text" id="apellidoMaterno" autoComplete="off" onChange={(e) => setapellidoM(e.target.value)} />
+          <input
+            type="text"
+            id="apellidoMaterno"
+            autoComplete="off"
+            onChange={(e) => setapellidoM(e.target.value)}
+          />
 
           <label htmlFor="correo">Correo:</label>
-          <input type="email" id="correo" autoComplete="off" onChange={(e) => setcorreo(e.target.value)} />
+          <input
+            type="email"
+            id="correo"
+            autoComplete="off"
+            onChange={(e) => setcorreo(e.target.value)}
+          />
 
           <label htmlFor="usuario">Usuario:</label>
-          <input type="text" id="usuario" autoComplete="off" onChange={(e) => setusuario(e.target.value)} />
+          <input
+            type="text"
+            id="usuario"
+            autoComplete="off"
+            onChange={(e) => setusuario(e.target.value)}
+          />
 
           <label htmlFor="password">Contraseña:</label>
-          <input type="password" id="password" autoComplete="off" onChange={(e) => setpassword(e.target.value)} />
+          <input
+            type="password"
+            id="password"
+            autoComplete="off"
+            onChange={(e) => setpassword(e.target.value)}
+          />
         </SectionOne>
         <SectionTow>
           <label htmlFor="fecha">Fecha de registro:</label>
-          <input type="date" id="fecha" autoComplete="off" onChange={(e) => setfecha(e.target.value)} />
+          <input
+            type="date"
+            id="fecha"
+            autoComplete="off"
+            onChange={(e) => setfecha(e.target.value)}
+          />
 
           <label htmlFor="perfil">Pefil:</label>
-          <input type="text" id="perfil" autoComplete="off" onChange={(e) => setperfil(e.target.value)} />
+          <input
+            type="text"
+            id="perfil"
+            autoComplete="off"
+            onChange={(e) => setperfil(e.target.value)}
+          />
 
           <label htmlFor="estatus">Estatus:</label>
-          <input type="text" id="estatus" autoComplete="off" onChange={(e) => setestatus(+e.target.value)} />
+          <input
+            type="text"
+            id="estatus"
+            autoComplete="off"
+            onChange={(e) => setestatus(+e.target.value)}
+          />
 
           <label htmlFor="telefono">Telefono:</label>
-          <input type="tel" id="telefono" autoComplete="off" onChange={(e) => settelefono(e.target.value)} />
+          <input
+            type="tel"
+            id="telefono"
+            autoComplete="off"
+            onChange={(e) => settelefono(e.target.value)}
+          />
         </SectionTow>
         <input type="submit" value="Guardar" />
-      </UsuariosConteiner>
+      </Form>
 
       <footer>
         <BtnSection>
@@ -211,7 +308,6 @@ export default function RegistroUsuarios() {
             <p>Estatus del cliente</p>
           </div>
           <div className="btn-container">
-            
             <input type="button" value="Actualizar" />
           </div>
         </BtnSection>

@@ -1,19 +1,39 @@
 <?php
-function listarEmpleado(){
-    try{
-$mysqli = include_once "./Conexion.php";
-$resultado = $mysqli->query("SELECT `id`, `nombre`, `apellido_paterno`, `apellido_materno`, `correo`, `usuario`, `contrasena`, `fecha_registro`, `perfil`, `estatus`, `telefono` FROM usuario");
-$videojuegos = $resultado->fetch_all(MYSQLI_ASSOC);
+header('Access-Control-Allow-Origin: http://localhost:5173'); // Replace with your React app's origin
+header('Access-Control-Allow-Methods: GET, POST'); // Add allowed methods if needed
+header('Access-Control-Allow-Headers: Content-Type'); // Add allowed headers if needed
+header('Content-Type: application/json');
+
+include("Conexion.php");
+$id = $_POST["clave"];
+$sql = "SELECT * FROM usuario WHERE id=" . $id;
+$result = mysqli_query($con, $sql);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $nombre = $row["nombre"];
+        $apeP = $row["apellido_paterno"];
+        $apeM = $row["apellido_materno"];
+        $correo = $row["correo"];
+        $usuario = $row["usuario"];
+        $contra = $row["contrasena"];
+        $fecha = $row["fecha_registro"];
+        $perfil = $row["perfil"];
+        $estatus = $row["estatus"];
+        $telefono = $row["telefono"];
     }
+    $user = [
+        "nombre" => $nombre,
+        "apellidoP" => $apeP,
+        "apellidoM" => $apeM,
+        "correo" => $correo,
+        "usuario" => $usuario,
+        "contrasena" => $contra,
+        "fecha" => $fecha,
+        "perfil" => $perfil,
+        "estatus" => $estatus,
+        "telefono" => $telefono
+    ];
+    echo json_encode($user);
 }
-function login(){
-    $mysqli = include_once "./Conexion.php";
-$usuario = $_GET["usuario"];
-$pass = $_GET["contrasena"]
-$sentencia = $mysqli->prepare("SELECT `id`, `nombre`, `apellido_paterno`, `apellido_materno`, `correo`, `usuario`, `contrasena`, `fecha_registro`, `perfil`, `estatus`, `telefono` FROM usuario WHERE usuario = ? and contrasena = ?");
-$sentencia->bind_param("ss", $usuario,$pass);
-$sentencia->execute();
-$resultado = $sentencia->get_result();
-$Empleado = $resultado->fetch_assoc();
-}
+mysqli_close($con);
 ?>

@@ -2,9 +2,13 @@
 $host = "localhost";
 $usuario = "root";
 $contrasenia = "";
-$base_de_datos = "Taqueria";
-$mysqli = new mysqli($host, $usuario, $contrasenia, $base_de_datos);
-if ($mysqli->connect_errno) {
-    echo "Falló la conexión a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+$base_de_datos = "taqueria";
+
+$con = mysqli_connect($host, $usuario, $contrasenia, $base_de_datos);
+
+if (mysqli_connect_errno()) {
+    echo "Error al conectar";
+    exit();
 }
-return $mysqli;
+
+echo "Conexion exitosa";
